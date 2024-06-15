@@ -1,0 +1,1 @@
+scp -P 4242 level06@10.18.190.161:/home/users/level06/level06 .
