@@ -134,6 +134,7 @@ undefined4 main(undefined4 param_1,char **param_2,char **param_3) {
   puts(
       "----------------------------------------------------\n  Welcome to wil\'s crappy number stora ge service!   \n----------------------------------------------------\n Commands:                                          \n    store - store a number into the data storage    \n    read  - read a number from the data storage     \n    quit  - exit the program                        \n----------------------------------------------------\n   wil has reserved some storage :>                 \n----------------------------------------------------\n"
       );
+  
   do {
     printf("Input command: ");
     local_2c = 1;
