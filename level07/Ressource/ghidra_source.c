@@ -87,7 +87,7 @@ undefined4 main(undefined4 param_1,char **param_2,char **param_3) {
   char **local_1c4;
   undefined4 local_1bc [100];
   undefined4 local_2c;
-  undefined4 local_28;
+  undefined4 OUR_INPUT;
   undefined4 local_24;
   undefined4 local_20;
   undefined4 local_1c;
@@ -99,7 +99,7 @@ undefined4 main(undefined4 param_1,char **param_2,char **param_3) {
   local_1c8 = param_3;
   local_14 = *(int *)(in_GS_OFFSET + 0x14);
   local_2c = 0;
-  local_28 = 0;
+  OUR_INPUT = 0;
   local_24 = 0;
   local_20 = 0;
   local_1c = 0;
@@ -136,11 +136,14 @@ undefined4 main(undefined4 param_1,char **param_2,char **param_3) {
       );
   
   do {
+    // [STORING INPUT]
     printf("Input command: ");
     local_2c = 1;
-    fgets((char *)&local_28,0x14,stdin);
+    fgets((char *)&OUR_INPUT,0x14,stdin);
+
+  // [STRCMP INPUT -> STORE]
     uVar3 = 0xffffffff;
-    puVar4 = &local_28;
+    puVar4 = &OUR_INPUT;
     do {
       if (uVar3 == 0) break;
       uVar3 = uVar3 - 1;
@@ -152,7 +155,7 @@ undefined4 main(undefined4 param_1,char **param_2,char **param_3) {
     bVar9 = uVar3 == 2;
     *(undefined *)((int)&local_2c + uVar3 + 2) = 0;
     iVar2 = 5;
-    puVar4 = &local_28;
+    puVar4 = &OUR_INPUT;
     pbVar6 = (byte *)"store";
     do {
       if (iVar2 == 0) break;
@@ -169,7 +172,7 @@ undefined4 main(undefined4 param_1,char **param_2,char **param_3) {
     }
     else {
       iVar2 = 4;
-      puVar4 = &local_28;
+      puVar4 = &OUR_INPUT;
       pbVar6 = &DAT_08048d61;
       do {
         if (iVar2 == 0) break;
@@ -183,10 +186,9 @@ undefined4 main(undefined4 param_1,char **param_2,char **param_3) {
       bVar7 = (!bVar8 && !bVar7) == bVar8;
       if (bVar7) {
         local_2c = read_number((int)local_1bc);
-      }
       else {
         iVar2 = 4;
-        puVar4 = &local_28;
+        puVar4 = &OUR_INPUT;
         pbVar6 = &DAT_08048d66;
         do {
           if (iVar2 == 0) break;
@@ -206,16 +208,16 @@ undefined4 main(undefined4 param_1,char **param_2,char **param_3) {
       }
     }
     if (local_2c == 0) {
-      printf(" Completed %s command successfully\n",&local_28);
+      printf(" Completed %s command successfully\n",&OUR_INPUT);
     }
     else {
-      printf(" Failed to do %s command\n",&local_28);
+      printf(" Failed to do %s command\n",&OUR_INPUT);
     }
-    local_28 = 0;
+    OUR_INPUT = 0;
     local_24 = 0;
     local_20 = 0;
     local_1c = 0;
     local_18 = 0;
   } while( true );
 }
-
+}
