@@ -46,7 +46,7 @@ a8 = 168 bytes de distance
 
 le mot de passe fait fait une taille de 0x29 donc 41 en decimal, ce qui fait 5 print 
 
-### Payload :
+### Payload
 ```
 %26$p %25$p %24$p %23$p %22$p
 ```
