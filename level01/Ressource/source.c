@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdbool.h>
 
 bool verify_user_name(char *username)

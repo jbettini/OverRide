@@ -5,38 +5,38 @@ Dans le code source on peu constater plusieur point :
 un printf mal formater est utiliser, il affiche la variable local_78
 la variable local_a8 contient le mot de passe du level3
 
-On va donc essayer d'exploitezr printf pour afficher la variable local_a8 :
+On va donc essayer d'exploiter printf pour afficher la variable local_a8 :
 
-
-undefined8 __stdcall main(void)
-undefined8        RAX:8          <RETURN>
-undefined8        Stack[-0x10]:8 local_10                                XREF[5]:     00400889(W), 
-004008ad(W), 
-004008b1(R), 
-004008ed(R), 
-0040097d(R)  
-undefined4        Stack[-0x14]:4 local_14                                XREF[3]:     00400891(W), 
-00400906(W), 
-00400925(R)  
-undefined4        Stack[-0x78]:4 local_78                                XREF[6]:     0040082c(*), 
-00400843(*), 
-004009cd(*), 
-004009de(*), 
-00400a71(*), 
-00400a96(*)  
-undefined1        Stack[-0xa8]:1 local_a8                                XREF[5]:     00400849(*), 
-00400863(*), 
-004008e6(*), 
-00400909(*), 
-00400a51(*)  
-undefined4        Stack[-0x118   local_118                               XREF[5]:     00400869(*), 
-00400883(*), 
-00400a10(*), 
-00400a24(*), 
-00400a4a(*)  
-undefined4        Stack[-0x11c   local_11c                               XREF[1]:     0040081f(W)  
-undefined8        Stack[-0x128   local_128                               XREF[1]:     00400825(W)  
-
+```
+    undefined8 __stdcall main(void)
+    undefined8        RAX:8          <RETURN>
+    undefined8        Stack[-0x10]:8 local_10                                XREF[5]:     00400889(W), 
+    004008ad(W), 
+    004008b1(R), 
+    004008ed(R), 
+    0040097d(R)  
+    undefined4        Stack[-0x14]:4 local_14                                XREF[3]:     00400891(W), 
+    00400906(W), 
+    00400925(R)  
+    undefined4        Stack[-0x78]:4 local_78                                XREF[6]:     0040082c(*), 
+    00400843(*), 
+    004009cd(*), 
+    004009de(*), 
+    00400a71(*), 
+    00400a96(*)  
+    undefined1        Stack[-0xa8]:1 local_a8                                XREF[5]:     00400849(*), 
+    00400863(*), 
+    004008e6(*), 
+    00400909(*), 
+    00400a51(*)  
+    undefined4        Stack[-0x118   local_118                               XREF[5]:     00400869(*), 
+    00400883(*), 
+    00400a10(*), 
+    00400a24(*), 
+    00400a4a(*)  
+    undefined4        Stack[-0x11c   local_11c                               XREF[1]:     0040081f(W)  
+    undefined8        Stack[-0x128   local_128                               XREF[1]:     00400825(W)  
+```
 
 Ici local_a8 est a a8 de distance avec le haut de la stack 
 a8 = 168 bytes de distance
