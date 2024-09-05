@@ -2,10 +2,10 @@ qemu-system-x86_64 \
     -m 8G \
     -smp 4 \
     -monitor stdio \
-    -cpu host \
+    -cpu qemu64 \
     -machine type=q35,accel=hvf \
     -netdev user,id=mynet0,hostfwd=tcp::4242-:4242 \
     -device virtio-net-pci,netdev=mynet0 \
     -device qemu-xhci \
     -vga vmware \
-    -hda ./override.iso
+    -hda ./OverRide.iso

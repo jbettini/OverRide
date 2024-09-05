@@ -71,3 +71,16 @@ on inverse et cela donne :
 ```
 Hh74RPnuQ9sa5JAEXgNWCqz7sXGnh5J5M9KfPg3H
 ```
+
+
+
+mount -v --bind /dev /mnt/uefi.fs/dev
+mount -vt devpts devpts -o gid=5,mode=0620 /mnt/uefi.fs/dev/pts
+mount -vt proc proc /mnt/uefi.fs/proc
+mount -vt sysfs sysfs /mnt/uefi.fs/sys
+mount -vt tmpfs tmpfs /mnt/uefi.fs/run
+if [ -h /mnt/uefi.fs/dev/shm ]; then
+  install -v -d -m 1777 /mnt/uefi.fs$(realpath /dev/shm)
+else
+  mount -vt tmpfs -o nosuid,nodev tmpfs /mnt/uefi.fs/dev/shm
+fi
