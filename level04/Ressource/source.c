@@ -1,42 +1,48 @@
-undefined4 main(void) {
-  int iVar1;
-  undefined4 *puVar2;
-  byte bVar3;
-  uint local_a4;
-  undefined4 local_a0 [32];
-  uint local_20;
-  uint local_1c;
-  long local_18;
-  __pid_t local_14;
-  
-  bVar3 = 0;
-  local_14 = fork();
-  puVar2 = local_a0;
-  for (iVar1 = 0x20; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + (uint)bVar3 * -2 + 1;
-  }
-  local_18 = 0;
-  local_a4 = 0;
-  if (local_14 == 0) {
-    prctl(1,1);
-    ptrace(PTRACE_TRACEME,0,0,0);
-    puts("Give me some shellcode, k");
-    gets((char *)local_a0);
-  }
-  else {
-    do {
-      wait(&local_a4);
-      local_20 = local_a4;
-      if (((local_a4 & 0x7f) == 0) ||
-         (local_1c = local_a4, '\0' < (char)(((byte)local_a4 & 0x7f) + 1) >> 1)) {
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/ptrace.h>
+#include <sys/wait.h>
+#include <sys/prctl.h> // Only on linux
+#include <signal.h>
+
+int main(int argc, const char **argv, const char **envp)
+{
+  int stat_loc;
+  char s[128];
+  int v6;
+  int v7;
+  int v8;
+  __pid_t v9;
+
+  v9 = fork();
+  memset(s, 0, sizeof(s));
+  v8 = 0;
+  stat_loc = 0;
+  if ( v9 )
+  {
+    do
+    {
+      wait(&stat_loc);
+      v6 = stat_loc;
+      if ( (stat_loc & 0x7F) == 0 || (v7 = stat_loc, (char)((stat_loc & 0x7F) + 1) >> 1 > 0) )
+      {
         puts("child is exiting...");
         return 0;
       }
-      local_18 = ptrace(PTRACE_PEEKUSER,local_14,0x2c,0);
-    } while (local_18 != 0xb);
+      v8 = ptrace(PTRACE_PEEKUSER, v9, 44, 0);
+    }
+    while ( v8 != 11 );
     puts("no exec() for you");
-    kill(local_14,9);
+    kill(v9, 9);
+  }
+  else
+  {
+    prctl(1, 1);
+    ptrace(PTRACE_TRACEME, 0, 0, 0);
+    puts("Give me some shellcode, k");
+    gets(s);
   }
   return 0;
 }
