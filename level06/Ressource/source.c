@@ -1,118 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/ptrace.h>
 
------------------------------------------------------
+bool auth(char *s, int a2)
+{
+  int i;
+  int v4;
+  int v5;
 
-void clear_stdin(void) {
-  int iVar1;
-  
-  do {
-    iVar1 = getchar();
-    if ((char)iVar1 == '\n') {
-      return;
-    }
-  } while ((char)iVar1 != -1);
-  return;
-}
-
------------------------------------------------------
-
-void enable_timeout_cons(void) {
-  signal(0xe,prog_timeout);
-  alarm(0x3c);
-  return;
-}
-
------------------------------------------------------
-
-undefined4 get_unum(void) {
-  undefined4 local_10 [3];
-  
-  local_10[0] = 0;
-  fflush(stdout);
-  __isoc99_scanf(&DAT_08048a60,local_10);
-  clear_stdin();
-  return local_10[0];
-}
-
------------------------------------------------------
-
-void prog_timeout(void) {
-  code *pcVar1;
-  
-  pcVar1 = (code *)swi(0x80);
-  (*pcVar1)();
-  return;
-}
-
-
------------------------------------------------------
-
-undefined4 auth(char *param_1,uint param_2) {
-  size_t sVar1;
-  undefined4 uVar2;
-  long lVar3;
-  int local_18;
-  uint local_14;
-  
-  sVar1 = strcspn(param_1,"\n");
-  param_1[sVar1] = '\0';
-  sVar1 = strnlen(param_1,0x20);
-  if ((int)sVar1 < 6) {
-    uVar2 = 1;
+  s[strcspn(s, "\n")] = 0;
+  v5 = strnlen(s, 32);
+  if ( v5 <= 5 )
+    return 1;
+  if ( ptrace(PTRACE_TRACEME, 0, 1, 0) == -1 )
+  {
+    puts("\x1B[32m.---------------------------.");
+    puts("\x1B[31m| !! TAMPERING DETECTED !!  |");
+    puts("\x1B[32m'---------------------------'");
+    return 1;
   }
-  else {
-    lVar3 = ptrace(PTRACE_TRACEME);
-    if (lVar3 == -1) {
-      puts("\x1b[32m.---------------------------.");
-      puts("\x1b[31m| !! TAMPERING DETECTED !!  |");
-      puts("\x1b[32m\'---------------------------\'");
-      uVar2 = 1;
+  else
+  {
+    v4 = (s[3] ^ 0x1337) + 6221293;
+    for ( i = 0; i < v5; ++i )
+    {
+      if ( s[i] <= 31 )
+        return 1;
+      v4 += (v4 ^ (unsigned int)s[i]) % 0x539;
     }
-    else {
-      local_14 = ((int)param_1[3] ^ 0x1337U) + 0x5eeded;
-      for (local_18 = 0; local_18 < (int)sVar1; local_18 = local_18 + 1) {
-        if (param_1[local_18] < ' ') {
-          return 1;
-        }
-        local_14 = local_14 + ((int)param_1[local_18] ^ local_14) % 0x539;
-      }
-      if (param_2 == local_14) {
-        uVar2 = 0;
-      }
-      else {
-        uVar2 = 1;
-      }
-    }
+    return a2 != v4;
   }
-  return uVar2;
 }
 
------------------------------------------------------
-bool main(undefined4 param_1,undefined4 param_2) {
-  int iVar1;
-  int in_GS_OFFSET;
-  uint uStack_38;
-  char local_34 [32];
-  int local_14;
-  
-  local_14 = *(int *)(in_GS_OFFSET + 0x14);
+int main(int argc, const char **argv, const char **envp)
+{
+  int v4;
+  char s[28];
+  unsigned int v6;
+
+  v6 = __readgsdword(0x14u);
   puts("***********************************");
   puts("*\t\tlevel06\t\t  *");
   puts("***********************************");
   printf("-> Enter Login: ");
-  fgets(local_34,0x20,stdin);
+  fgets(s, 32, stdin);
   puts("***********************************");
   puts("***** NEW ACCOUNT DETECTED ********");
   puts("***********************************");
   printf("-> Enter Serial: ");
-  __isoc99_scanf();
-  iVar1 = auth(local_34,uStack_38);
-  if (iVar1 == 0) {
-    puts("Authenticated!");
-    system("/bin/sh");
-  }
-  if (local_14 != *(int *)(in_GS_OFFSET + 0x14)) {
-                    /* WARNING: Subroutine does not return */
-    __stack_chk_fail();
-  }
-  return iVar1 != 0;
+  scanf(&unk_8048A60, &v4);
+  if ( auth(s, v4) )
+    return 1;
+  puts("Authenticated!");
+  system("/bin/sh");
+  return 0;
 }
