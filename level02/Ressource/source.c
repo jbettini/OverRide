@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 int main(int argc, const char **argv, const char **envp)
 {
@@ -12,7 +16,7 @@ int main(int argc, const char **argv, const char **envp)
   v5 = 0;
   v8 = 0;
   v9 = 0;
-  memset(username, 0, sizeof(s));
+  memset(username, 0, sizeof(username));
   memset(fake_pass, 0, sizeof(fake_pass));
   memset(real_pass, 0, 41);
   real_passFile = fopen("/home/users/level03/.real_pass", "r");
