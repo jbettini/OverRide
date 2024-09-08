@@ -1,26 +1,35 @@
 # Override
-## Overview
+## Vue d'ensemble
 
-Override is a challenging CTF project designed to improve your understanding of binary exploitation (ELF format) on i386 systems. As a continuation of RainFall, this project aims to deepen your knowledge of memory management and vulnerability exploitation through practical tasks.
+Override est un projet de CTF (Capture The Flag) conçu pour améliorer votre compréhension de l'exploitation binaire (format ELF) sur les systèmes i386. Suite directe du projet RainFall, ce projet vise à approfondir vos connaissances en gestion de la mémoire et en exploitation de vulnérabilités à travers des tâches pratiques.
+## Fonctionnalités
 
-## Features
--   Focus on reverse engineering and binary exploitation.
--   Hands-on experience with ELF binaries.
--   Payload crafting to gain access and solve challenges.
--   Detailed solutions provided for each level, explaining the concepts and methods used.
+-   Accent sur l'ingénierie inverse et l'exploitation binaire.
+-   Expérience pratique avec les binaires ELF.
+-   Création de payloads pour obtenir un accès et résoudre les défis.
+-   Solutions détaillées fournies pour chaque niveau, expliquant les concepts et méthodes utilisés.
 
-## Prerequisites
--   A Unix-like operating system.
--   Basic knowledge of reverse engineering tools and techniques.
--   Familiarity with common vulnerabilities and exploitation methods.
+## Prérequis
 
-##  Installation
+-   Un système d'exploitation de type Unix.
+-   Connaissances de base des outils et techniques de reverse engineering.
+-   Familiarité avec les vulnérabilités courantes et les méthodes d'exploitation.
+
+## Installation
+
 ```
 git clone https://github.com/jbettini/OverRide.git
 ```
 
-## Project Structure
+## Note importante :
 
-    level00/: Challenges for level 00.
-    level01/: Challenges for level 01.
-    level02/: Challenges for level 02.
+Pour la décompilation des binaires, Hex-Rays a généralement été utilisé pour analyser et comprendre le code source sous-jacent.
+
+### Outils utilisé pour realiser le projet
+
+-   [Decompilateur](https://dogbolt.org)
+-   [Generateur de patern](https://wiremask.eu/)
+-   [Calculette](https://www.wolframalpha.com)
+-   [Convertisseur hexa](https://www.rapidtables.com/convert/number/decimal-to-hex.html?x=40)
+
+Et bien sure Gdb .
